@@ -14,6 +14,7 @@
         .rezervari{margin-top:30px;background:#e8f5e8;padding:15px;border-radius:10px;}
         .rezervari p{background:white;padding:10px;margin:8px 0;border-left:5px solid #006400;border-radius:5px;}
         a{color:#006400;font-weight:bold;}
+        form{display:none;} /* Ascunde formularul în versiunea statică */
     </style>
 </head>
 <body>
@@ -21,6 +22,7 @@
     <h1>Club Tenis Acvila</h1>
     <p>Rezervă terenul online • Chișinău</p>
 
+    <!-- Formular dinamic doar pe local/XAMPP -->
     <form action="rezervare.php" method="post">
         <input type="text" name="nume" placeholder="Nume și prenume" required>
         <input type="text" name="telefon" placeholder="Telefon (ex: 079123456)" required>
@@ -36,26 +38,10 @@
 
     <div class="rezervari">
         <h3>Rezervări de azi (<?php echo date('d.m.Y'); ?>)</h3>
-        <?php
-        $azi = date('Y-m-d');
-        if (file_exists('rezervari.txt')) {
-            $lines = file('rezervari.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-            $gasit = false;
-            foreach ($lines as $l) {
-                $p = explode('|', $l);
-                if (count($p) >= 4 && trim($p[0]) === $azi) {
-                    $gasit = true;
-                    echo "<p><strong>" . substr(trim($p[1]), 0, 5) . "</strong> → " . htmlspecialchars(trim($p[2])) . " <small>(" . trim($p[3]) . ")</small></p>";
-                }
-            }
-            if (!$gasit) echo "<p>Nu sunt rezervări încă pentru azi.</p>";
-        } else {
-            echo "<p>Nicio rezervare încă.</p>";
-        }
-        ?>
+        <!-- REZERVARI_AICI -->
     </div>
 
-    <p><small><a href="admin.php">Admin</a></small></p>
+    <p><small><a href="admin.html">Admin</a></small></p> <!-- Link static -->
 </div>
 </body>
 </html>
